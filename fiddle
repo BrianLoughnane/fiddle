@@ -1,0 +1,32 @@
+### fiddles
+# assumes subl command to open sublime
+
+# chrome command to open chrome
+chrome () {
+  open -a "Google Chrome" "$1"
+}
+
+# initiate fiddle setup
+fiddlesetup () {
+  mkdir -p ~/code/fiddles
+  cd ~/code/fiddles
+  mkdir fiddle-template
+  cd fiddle-template
+  touch index.html
+  touch style.css
+  touch app.js
+  echo '<!DOCTYPE html><html lang="en"><head><link rel="stylesheet" href="style.css"><meta charset="UTF-8"><title>Fiddle</title><script src="app.js"></script></head><body><h1>Hello Fiddler!</h1></body></html>' > index.html
+}
+
+# get to fiddles easily
+alias fiddles='pushd . && cd ~/code/fiddles'
+
+# fiddle command
+fiddle () {
+  pushd .
+  cd ~/code/fiddles
+  cp -r fiddle-template "$1"-fiddle
+  cd "$1"-fiddle
+  subl .
+  chrome index.html 
+}
